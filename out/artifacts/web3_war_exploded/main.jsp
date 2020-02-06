@@ -2,25 +2,44 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
-<%--<script>
+<script>
     function send(method, url, data = '') {
         let xhr = new XMLHttpRequest();
         xhr.open(method, url);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
-        xhr.onload = function() {
+        xhr.onload = function () {
             location.reload();
         };
         xhr.send(data);
     }
-</script>--%>
+</script>
+<table border="1" cellspacing="0" cellpadding="2">
+    <tr>
+        <td>Name</td>
+        <td>password</td>
+        <td>age</td>
+    </tr>
+    <form method="post" action="/web1/" style="margin: 0;">
+        <tr>
+            <td>
+                <input type="text" name="name">
+            </td>
 
-<form action="/web1/" method="POST">
-    Name:<br>
-    <input type="text" name="name"><br>
-    <input type="text" name="action" value="put" hidden>
-    <br>
-    <button type="submit">add</button>
-</form>
+            <td>
+                <input type="text" name="pass">
+            </td>
+
+            <td>
+                <input type="text" name="age">
+            </td>
+
+            <td>
+                <input type="text" name="action" value="put" hidden>
+                <button type="submit">add</button>
+            </td>
+        </tr>
+    </form>
+</table>
 
 <c:if test="${fn:length(users) > 0}">
     <table border="1" cellspacing="0" cellpadding="2">
@@ -29,29 +48,39 @@
         <tr>
             <td>ID</td>
             <td>Name</td>
+            <td>password</td>
+            <td>age</td>
         </tr>
         <c:forEach items="${users}" var="user">
-            <tr>
-                <td>
-                        ${user.id}
-                </td>
-                <td>
-                    <form method="post" action="/web1/" style="margin: 0;">
+            <form method="post" action="/web1/" style="margin: 0;">
+                <tr>
+                    <td>
                         <input type="text" name="id" value="${user.id}" hidden>
+                            ${user.id}
+                    </td>
+                    <td>
                         <input type="text" name="name" value="${user.name}">
+                    </td>
+
+                    <td>
+                        <input type="text" name="pass" value="${user.pass}">
+                    </td>
+
+                    <td>
+                        <input type="text" name="age" value="${user.age}">
+                    </td>
+
+                    <td>
                         <input type="text" name="action" value="update" hidden>
                         <button type="submit">update</button>
-                    </form>
-                </td>
-                <td>
-                    <form method="post" action="/web1/" style="margin: 0;">
-                        <input type="text" name="id" value="${user.id}" hidden>
-                        <input type="text" name="action" value="delete" hidden>
-                        <button type="submit">delete</button>
-                    </form>
-                </td>
+                    </td>
+                    <td>
+                        <button type="button" onclick="send('post','/web1/','action=delete&id=${user.id}' )">delete
+                        </button>
+                    </td>
 
-            </tr>
+                </tr>
+            </form>
         </c:forEach>
     </table>
 </c:if>

@@ -20,16 +20,23 @@ public class UserService {
         return new UserJDBCDao(connection).getAllUsers();
     }
 
-    public boolean addUser(String name) {
-        return name != null && !name.isEmpty() && new UserJDBCDao(connection).addUser(name);
+    public boolean addUser(String name, String pass, long age) {
+        return name != null &&
+                pass != null &&
+                !name.isEmpty() &&
+                !pass.isEmpty() &&
+                age > 0 &&
+                new UserJDBCDao(connection).addUser(
+                        new User(name, pass, age)
+                );
     }
 
     public boolean delUser(long id) {
-        return new UserJDBCDao(connection).delUser(id);
+        return new UserJDBCDao(connection).delUser(new User(id));
     }
 
-    public boolean updateUser(long id, String name) {
-        User user = new User(id, name);
+    public boolean updateUser(long id, String name, String pass, long age) {
+        User user = new User(id, name, pass, age);
         return user.validate() && new UserJDBCDao(connection).update(user);
     }
 }

@@ -1,12 +1,22 @@
 package model;
 
-
 import java.util.Objects;
 
 public class User {
-
     private Long id;
+
     private String name;
+
+    private String pass;
+
+    private Long age;
+
+    public User(Long id, String name, String pass, Long age) {
+        this.id = id;
+        this.name = name;
+        this.pass = pass;
+        this.age = age;
+    }
 
     public User(Long id, String name) {
         this.id = id;
@@ -15,6 +25,37 @@ public class User {
 
     public User(String name) {
         this.name = name;
+    }
+
+    public User(long id) {
+        this.id = id;
+    }
+
+    public User() {
+
+    }
+
+    public User(String name, String pass, Long age) {
+        this.name = name;
+        this.pass = pass;
+        this.age = age;
+    }
+
+
+    public String getPass() {
+        return pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
+
+    public Long getAge() {
+        return age;
+    }
+
+    public void setAge(Long age) {
+        this.age = age;
     }
 
     public Long getId() {
@@ -48,6 +89,6 @@ public class User {
     }
 
     public boolean validate() {
-        return name != null && !name.isEmpty() && id != 0;
+        return name != null && !name.isEmpty() && id > 0 && pass != null && !pass.isEmpty() && age > 0;
     }
 }

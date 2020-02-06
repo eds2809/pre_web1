@@ -28,16 +28,22 @@ public class mainServlet extends HttpServlet {
                     result = UserService.instance.delUser(Long.parseLong(req.getParameter("id")));
                     break;
                 case "put":
-                    result = UserService.instance.addUser(req.getParameter("name"));
+                    result = UserService.instance.addUser(
+                            req.getParameter("name"),
+                            req.getParameter("pass"),
+                            Long.parseLong(req.getParameter("age"))
+                    );
                     break;
                 case "update":
                     result = UserService.instance.updateUser(
                             Long.parseLong(req.getParameter("id")),
-                            req.getParameter("name")
+                            req.getParameter("name"),
+                            req.getParameter("pass"),
+                            Long.parseLong(req.getParameter("age"))
                     );
                     break;
             }
-        } catch (NullPointerException ignored) {
+        } catch (NullPointerException | NumberFormatException ignored) {
 
         }
 

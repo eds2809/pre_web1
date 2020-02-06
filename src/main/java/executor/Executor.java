@@ -29,7 +29,6 @@ public class Executor {
         T value = handler.handle(result);
         result.close();
         stmt.close();
-
         return value;
     }
 
